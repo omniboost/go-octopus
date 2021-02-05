@@ -1,4 +1,4 @@
-package dkplus
+package octopus
 
 import "net/url"
 

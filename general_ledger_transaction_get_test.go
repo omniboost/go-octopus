@@ -1,4 +1,4 @@
-package dkplus_test
+package octopus_test
 
 import (
 	"encoding/json"
@@ -6,13 +6,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/omniboost/go-dkplus"
+	"github.com/omniboost/go-octopus"
 )
 
 func TestGeneralLedgerTransactionGet(t *testing.T) {
 	req := client.NewGeneralLedgerTransactionGetRequest()
 	req.PathParams().Count = 10
-	req.QueryParams().CreatedAfter = dkplus.DateTime{time.Now().AddDate(0, 0, -7)}
+	req.QueryParams().CreatedAfter = octopus.DateTime{time.Now().AddDate(0, 0, -7)}
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

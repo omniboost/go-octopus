@@ -1,4 +1,4 @@
-package dkplus_test
+package octopus_test
 
 import (
 	"crypto/tls"
@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/Azure/go-ntlmssp"
-	guestline "github.com/omniboost/go-dkplus"
+	guestline "github.com/omniboost/go-octopus"
 )
 
 var (

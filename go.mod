@@ -1,4 +1,4 @@
-module github.com/omniboost/go-dkplus
+module github.com/omniboost/go-octopus
 
 go 1.15
 

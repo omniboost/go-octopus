@@ -1,4 +1,4 @@
-package dkplus
+package octopus
 
 import (
 	"bytes"
@@ -20,7 +20,7 @@ import (
 
 const (
 	libraryVersion = "0.0.1"
-	userAgent      = "go-dkplus/" + libraryVersion
+	userAgent      = "go-octopus/" + libraryVersion
 	mediaType      = "application/json"
 	charset        = "utf-8"
 )
@@ -28,7 +28,7 @@ const (
 var (
 	BaseURL = url.URL{
 		Scheme: "https",
-		Host:   "api.dkplus.is",
+		Host:   "api.octopus.is",
 		Path:   "/api/v1",
 	}
 )

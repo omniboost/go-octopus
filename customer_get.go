@@ -1,11 +1,11 @@
-package dkplus
+package octopus
 
 import (
 	"net/http"
 	"net/url"
 	"time"
 
-	"github.com/omniboost/go-dkplus/utils"
+	"github.com/omniboost/go-octopus/utils"
 )
 
 func (c *Client) NewCustomerGetRequest() CustomerGetRequest {

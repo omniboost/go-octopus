@@ -1,16 +1,16 @@
-package dkplus_test
+package octopus_test
 
 import (
 	"encoding/json"
 	"fmt"
 	"testing"
 
-	"github.com/omniboost/go-dkplus"
+	"github.com/omniboost/go-octopus"
 )
 
 func TestProductPost(t *testing.T) {
 	req := client.NewProductPostRequest()
-	req.SetRequestBody(dkplus.ProductPostRequestBody{})
+	req.SetRequestBody(octopus.ProductPostRequestBody{})
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

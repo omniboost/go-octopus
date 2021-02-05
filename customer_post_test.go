@@ -1,16 +1,16 @@
-package dkplus_test
+package octopus_test
 
 import (
 	"encoding/json"
 	"fmt"
 	"testing"
 
-	"github.com/omniboost/go-dkplus"
+	"github.com/omniboost/go-octopus"
 )
 
 func TestCustomerPost(t *testing.T) {
 	req := client.NewCustomerPostRequest()
-	req.SetRequestBody(dkplus.CustomerPostRequestBody{
+	req.SetRequestBody(octopus.CustomerPostRequestBody{
 		Number:      "4321",
 		Name:        "Leon Bogaert",
 		Address1:    "Stadhuisplein 3",

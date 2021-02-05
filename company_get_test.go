@@ -1,4 +1,4 @@
-package dkplus_test
+package octopus_test
 
 import (
 	"encoding/json"
