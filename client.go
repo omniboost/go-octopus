@@ -387,7 +387,7 @@ type ErrorResponse struct {
 	Response *http.Response
 
 	TechnicalInfo string `json:"technicalInfo"`
-	ErrorCode     string `json:"errorCode"`
+	ErrorCode     int    `json:"errorCode"`
 	ErrorMessage  string `json:"errorMessage"`
 }
 
