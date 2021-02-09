@@ -3,14 +3,16 @@ package octopus_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/omniboost/go-octopus"
 )
 
-func TestProductPost(t *testing.T) {
-	req := client.NewProductPostRequest()
-	req.SetRequestBody(octopus.ProductPostRequestBody{})
+func TestVATCodes(t *testing.T) {
+	req := client.NewVATCodesRequest()
+	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
+	req.SetRequestBody(octopus.VATCodesRequestBody{})
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

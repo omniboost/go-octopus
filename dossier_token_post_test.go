@@ -3,11 +3,13 @@ package octopus_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 )
 
-func TestProductsGet(t *testing.T) {
-	req := client.NewProductsGetRequest()
+func TestDossierTokenPost(t *testing.T) {
+	req := client.NewDossierTokenPostRequest()
+	req.QueryParams().DossierID = os.Getenv("DOSSIER_ID")
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

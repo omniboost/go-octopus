@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"testing"
+
+	"github.com/omniboost/go-octopus"
 )
 
-func TestCustomerSearchGet(t *testing.T) {
-	req := client.NewCustomerSearchGetRequest()
-	req.PathParams().SearchString = "Bogaert"
+func TestDossiersGet(t *testing.T) {
+	req := client.NewDossiersGetRequest()
+	req.SetRequestBody(octopus.DossiersGetRequestBody{})
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

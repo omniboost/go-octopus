@@ -1,14 +1,11 @@
 package octopus_test
 
 import (
-	"crypto/tls"
 	"log"
-	"net/http"
 	"net/url"
 	"os"
 	"testing"
 
-	"github.com/Azure/go-ntlmssp"
 	guestline "github.com/omniboost/go-octopus"
 )
 
@@ -20,7 +17,9 @@ func TestMain(m *testing.M) {
 	var err error
 
 	baseURLString := os.Getenv("BASE_URL")
-	token := os.Getenv("TOKEN")
+	softwareHouse := os.Getenv("SOFTWARE_HOUSE")
+	username := os.Getenv("USERNAME")
+	password := os.Getenv("PASSWORD")
 	debug := os.Getenv("DEBUG")
 	var baseURL *url.URL
 
@@ -31,7 +30,7 @@ func TestMain(m *testing.M) {
 		}
 	}
 
-	client = guestline.NewClient(nil, token)
+	client = guestline.NewClient(nil, softwareHouse, username, password)
 	if debug != "" {
 		client.SetDebug(true)
 	}
@@ -41,18 +40,5 @@ func TestMain(m *testing.M) {
 	}
 
 	client.SetDisallowUnknownFields(true)
-	client.SetBeforeRequestDo(func(httpClient *http.Client, req *http.Request, body interface{}) {
-		tr := &http.Transport{
-			TLSClientConfig:   &tls.Config{InsecureSkipVerify: true},
-			ForceAttemptHTTP2: false,
-		}
-
-		ntlmTransport := ntlmssp.Negotiator{
-			RoundTripper: tr,
-		}
-
-		httpClient.Transport = ntlmTransport
-	})
-
 	m.Run()
 }

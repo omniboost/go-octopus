@@ -28,13 +28,13 @@ const (
 var (
 	BaseURL = url.URL{
 		Scheme: "https",
-		Host:   "api.octopus.is",
-		Path:   "/api/v1",
+		Host:   "service.inaras.be",
+		Path:   "/octopus-rest-api/v1",
 	}
 )
 
 // NewClient returns a new Exact Globe Client client
-func NewClient(httpClient *http.Client, token string) *Client {
+func NewClient(httpClient *http.Client, softwareHouse, username, password string) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
@@ -42,7 +42,9 @@ func NewClient(httpClient *http.Client, token string) *Client {
 	client := &Client{}
 
 	client.SetHTTPClient(httpClient)
-	client.SetToken(token)
+	client.SetSoftwareHouse(softwareHouse)
+	client.SetUsername(username)
+	client.SetPassword(password)
 	client.SetBaseURL(BaseURL)
 	client.SetDebug(false)
 	client.SetUserAgent(userAgent)
@@ -61,7 +63,11 @@ type Client struct {
 	baseURL url.URL
 
 	// credentials
-	token string
+	softwareHouse string
+	username      string
+	password      string
+	token         string
+	dossierTokens map[string]string
 
 	// User agent for client
 	userAgent string
@@ -92,12 +98,28 @@ func (c *Client) SetDebug(debug bool) {
 	c.debug = debug
 }
 
-func (c Client) Token() string {
-	return c.token
+func (c Client) SoftwareHouse() string {
+	return c.softwareHouse
 }
 
-func (c *Client) SetToken(token string) {
-	c.token = token
+func (c *Client) SetSoftwareHouse(softwareHouse string) {
+	c.softwareHouse = softwareHouse
+}
+
+func (c Client) Username() string {
+	return c.username
+}
+
+func (c *Client) SetUsername(username string) {
+	c.username = username
+}
+
+func (c Client) Password() string {
+	return c.password
+}
+
+func (c *Client) SetPassword(password string) {
+	c.password = password
 }
 
 func (c Client) BaseURL() url.URL {
@@ -205,8 +227,7 @@ func (c *Client) NewRequest(ctx context.Context, req Request) (*http.Request, er
 	r.Header.Add("Content-Type", fmt.Sprintf("%s; charset=%s", c.MediaType(), c.Charset()))
 	r.Header.Add("Accept", c.MediaType())
 	r.Header.Add("User-Agent", c.UserAgent())
-	r.Header.Add("Authorization", fmt.Sprintf("Bearer %s", c.Token()))
-	// r.Header.Add("SOAPAction", fmt.Sprintf("http://tempuri.org/RLXSOAP19/RLXSOAP19/%s", req.SOAPAction()))
+	r.Header.Add("softwareHouseUuid", c.SoftwareHouse())
 
 	return r, nil
 }
@@ -270,7 +291,7 @@ func (c *Client) Do(req *http.Request, body interface{}) (*http.Response, error)
 		return httpResp, err
 	}
 
-	if errResp.Message != "" {
+	if errResp.TechnicalInfo != "" {
 		return httpResp, errResp
 	}
 
@@ -354,7 +375,7 @@ func CheckResponse(r *http.Response) error {
 		return errors.WithStack(err)
 	}
 
-	if errorResponse.Message != "" {
+	if errorResponse.TechnicalInfo != "" {
 		return errorResponse
 	}
 
@@ -365,11 +386,13 @@ type ErrorResponse struct {
 	// HTTP response that caused this error
 	Response *http.Response
 
-	Message string `json:"Message"`
+	TechnicalInfo string `json:"technicalInfo"`
+	ErrorCode     string `json:"errorCode"`
+	ErrorMessage  string `json:"errorMessage"`
 }
 
 func (r *ErrorResponse) Error() string {
-	return r.Message
+	return r.TechnicalInfo
 }
 
 func checkContentType(response *http.Response) error {
@@ -380,4 +403,45 @@ func checkContentType(response *http.Response) error {
 	}
 
 	return nil
+}
+
+func (c *Client) Token() (string, error) {
+	if c.token != "" {
+		return c.token, nil
+	}
+
+	var err error
+	c.token, err = c.FetchToken()
+	return c.token, err
+}
+
+func (c *Client) FetchToken() (string, error) {
+	req := c.NewAuthenticationPostRequest()
+	resp, err := req.Do()
+	if err != nil {
+		return "", err
+	}
+
+	return resp.Token, nil
+}
+
+func (c *Client) DossierToken(dossierID string) (string, error) {
+	if t, ok := c.dossierTokens[dossierID]; ok {
+		return t, nil
+	}
+
+	var err error
+	c.token, err = c.FetchDossierToken(dossierID)
+	return c.token, err
+}
+
+func (c *Client) FetchDossierToken(dossierID string) (string, error) {
+	req := c.NewDossierTokenPostRequest()
+	req.QueryParams().DossierID = dossierID
+	resp, err := req.Do()
+	if err != nil {
+		return "", err
+	}
+
+	return resp.DossierToken, nil
 }
