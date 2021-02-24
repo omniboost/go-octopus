@@ -92,7 +92,7 @@ func (r FinancialDiversBookingsPostRequest) NewRequestBody() FinancialDiversBook
 	return FinancialDiversBookingsPostRequestBody{}
 }
 
-type FinancialDiversBookingsPostRequestBody FinancialDiversBookingServiceData
+type FinancialDiversBookingsPostRequestBody FinancialDiversBookingAndAttachmentRequest
 
 func (r *FinancialDiversBookingsPostRequest) RequestBody() *FinancialDiversBookingsPostRequestBody {
 	return &r.requestBody

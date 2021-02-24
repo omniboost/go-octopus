@@ -3,6 +3,7 @@ package octopus
 import (
 	"net/http"
 	"net/url"
+	"strconv"
 
 	"github.com/omniboost/go-octopus/utils"
 	"github.com/pkg/errors"
@@ -61,13 +62,13 @@ func (r JournalsGetRequest) NewPathParams() *JournalsGetPathParams {
 
 type JournalsGetPathParams struct {
 	DossierID  string `schema:"dossierId"`
-	BookYearID string `schema:"bookyearId"`
+	BookYearID int    `schema:"bookyearId"`
 }
 
 func (p *JournalsGetPathParams) Params() map[string]string {
 	return map[string]string{
 		"dossierId":  p.DossierID,
-		"bookyearId": p.BookYearID,
+		"bookyearId": strconv.Itoa(p.BookYearID),
 	}
 }
 
