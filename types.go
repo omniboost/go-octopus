@@ -31,7 +31,7 @@ type JournalServiceData struct {
 	CurrencyCode         string `json:"currencyCode,omitempty"`
 }
 
-type VatCodeServiceData struct {
+type VATCodeServiceData struct {
 	BasePercentage              float64 `json:"basePercentage"`
 	Code                        string  `json:"code"`
 	DefaultSellBookingAccountNr int     `json:"defaultSellBookingAccountNr"`
@@ -54,9 +54,9 @@ type AccountServiceData struct {
 	} `json:"description,omitempty"`
 	FiscProfessionalPercentage float64 `json:"fiscProfessionalPercentage"`
 	FiscRecupPercentage        float64 `json:"fiscRecupPercentage"`
-	VatRecupPercentage         float64 `json:"vatRecupPercentage"`
-	PurchaseVatCode            string  `json:"purchaseVatCode,omitempty"`
-	SalesVatCode               string  `json:"salesVatCode,omitempty"`
+	VATRecupPercentage         float64 `json:"vatRecupPercentage"`
+	PurchaseVATCode            string  `json:"purchaseVatCode,omitempty"`
+	SalesVATCode               string  `json:"salesVatCode,omitempty"`
 }
 
 type FinancialDiversBookingAndAttachmentRequest struct {
@@ -204,8 +204,17 @@ type RelationIdentificationServiceData struct {
 	Supplier       bool   `json:"supplier,omitempty"`
 	Telephone      string `json:"telephone,omitempty"`
 	URL            string `json:"url,omitempty"`
-	VatNr          string `json:"vatNr,omitempty"`
-	VatType        int    `json:"vatType,omitempty"`
+	VATNr          string `json:"vatNr,omitempty"`
+	// Vat Type (Btw plichtigheid):
+	// 0 : Onbekend
+	// 1 : Belgische BTW-plichtige
+	// 4 : Intracommunautaire BTW-plichtige
+	// 6 : BTW-plichtige buiten EU
+	// 7 : Particulier Belgie
+	// 8 : Particulier EU
+	// 9 : Particulier niet-EU
+	// 10: Niet btw-plichtig
+	VATType int `json:"vatType,omitempty"`
 }
 
 type BuySellBookingAndAttachmentRequest struct {
@@ -236,8 +245,8 @@ type BuySellBookingServiceData struct {
 	BookingLines      []struct {
 		AccountKey int     `json:"accountKey"`
 		BaseAmount float64 `json:"baseAmount"`
-		VatCodeKey string  `json:"vatCodeKey"`
-		VatAmount  float64 `json:"vatAmount"`
+		VATCodeKey string  `json:"vatCodeKey"`
+		VATAmount  float64 `json:"vatAmount"`
 		Comment    string  `json:"comment"`
 		// CostCentreKey struct {
 		// 	ID int `json:"id"`

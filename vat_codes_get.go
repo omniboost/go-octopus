@@ -107,7 +107,7 @@ func (r *VATCodesRequest) NewResponseBody() *VATCodesResponseBody {
 	return &VATCodesResponseBody{}
 }
 
-type VATCodesResponseBody []VatCodeServiceData
+type VATCodesResponseBody []VATCodeServiceData
 
 func (r *VATCodesRequest) URL() *url.URL {
 	u := r.client.GetEndpointURL("dossiers/{{.dossierId}}/vatcodes", r.PathParams())
