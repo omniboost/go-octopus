@@ -169,7 +169,7 @@ type RelationIdentificationServiceData struct {
 	Client                            bool   `json:"client"`
 	ContactPerson                     string `json:"contactPerson,omitempty"`
 	CorporationType                   int    `json:"corporationType,omitempty"`
-	Country                           string `json:"country"`
+	Country                           string `json:"country,omitempty"`
 	CurrencyCode                      string `json:"currencyCode,omitempty"`
 	DefaultBookingAccountClient       int    `json:"defaultBookingAccountClient,omitempty"`
 	DefaultBookingAccountSupplier     int    `json:"defaultBookingAccountSupplier,omitempty"`
@@ -186,7 +186,7 @@ type RelationIdentificationServiceData struct {
 	FirstName                         string `json:"firstName"`
 	IbanAccountNr                     string `json:"ibanAccountNr,omitempty"`
 	Name                              string `json:"name"`
-	PostalCode                        string `json:"postalCode"`
+	PostalCode                        string `json:"postalCode,omitempty"`
 	Profession                        string `json:"profession,omitempty"`
 	RelationIdentificationServiceData struct {
 		ExternalRelationID int `json:"externalRelationId"`
