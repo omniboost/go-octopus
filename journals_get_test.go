@@ -14,8 +14,8 @@ func TestJournalsGet(t *testing.T) {
 	var err error
 
 	req := client.NewJournalsGetRequest()
-	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
-	req.PathParams().BookYearID, err = strconv.Atoi(os.Getenv("BOOKYEAR_ID"))
+	req.PathParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
+	req.PathParams().BookYearID, err = strconv.Atoi(os.Getenv("OCTO_BOOKYEAR_ID"))
 	if err != nil {
 		t.Error(err)
 	}

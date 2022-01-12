@@ -11,7 +11,7 @@ import (
 
 func TestRelationsPut(t *testing.T) {
 	req := client.NewRelationsPutRequest()
-	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
+	req.PathParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
 	req.SetRequestBody(octopus.RelationsPutRequestBody{})
 	resp, err := req.Do()
 	if err != nil {

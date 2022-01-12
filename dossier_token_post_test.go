@@ -9,7 +9,7 @@ import (
 
 func TestDossierTokenPost(t *testing.T) {
 	req := client.NewDossierTokenPostRequest()
-	req.QueryParams().DossierID = os.Getenv("DOSSIER_ID")
+	req.QueryParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

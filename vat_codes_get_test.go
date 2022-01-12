@@ -11,7 +11,7 @@ import (
 
 func TestVATCodes(t *testing.T) {
 	req := client.NewVATCodesRequest()
-	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
+	req.PathParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
 	req.SetRequestBody(octopus.VATCodesRequestBody{})
 	resp, err := req.Do()
 	if err != nil {

@@ -11,7 +11,7 @@ import (
 
 func TestBookyearsGet(t *testing.T) {
 	req := client.NewBookyearsGetRequest()
-	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
+	req.PathParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
 	req.SetRequestBody(octopus.BookyearsGetRequestBody{})
 	resp, err := req.Do()
 	if err != nil {

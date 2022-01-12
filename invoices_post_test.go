@@ -11,7 +11,7 @@ import (
 
 func TestInvoicesPost(t *testing.T) {
 	req := client.NewInvoicesPostRequest()
-	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
+	req.PathParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
 	req.SetRequestBody(octopus.InvoicesPostRequestBody{})
 	resp, err := req.Do()
 	if err != nil {

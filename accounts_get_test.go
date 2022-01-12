@@ -11,8 +11,8 @@ import (
 
 func TestAccountsGet(t *testing.T) {
 	req := client.NewAccountsGetRequest()
-	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
-	req.QueryParams().BookYearID = os.Getenv("BOOKYEAR_ID")
+	req.PathParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
+	req.QueryParams().BookYearID = os.Getenv("OCTO_BOOKYEAR_ID")
 	req.SetRequestBody(octopus.AccountsGetRequestBody{})
 	resp, err := req.Do()
 	if err != nil {

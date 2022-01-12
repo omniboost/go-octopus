@@ -11,10 +11,10 @@ import (
 
 func TestInvoicesGet(t *testing.T) {
 	req := client.NewInvoicesGetRequest()
-	req.PathParams().DossierID = os.Getenv("DOSSIER_ID")
-	req.QueryParams().BookYearID = os.Getenv("BOOKYEAR_ID")
-	req.QueryParams().JournalKey = os.Getenv("JOURNAL_KEY")
-	req.QueryParams().DocumentSeqNr = os.Getenv("DOCUMENT_SEQ_NR")
+	req.PathParams().DossierID = os.Getenv("OCTO_DOSSIER_ID")
+	req.QueryParams().BookYearID = os.Getenv("OCTO_BOOKYEAR_ID")
+	req.QueryParams().JournalKey = os.Getenv("OCTO_JOURNAL_KEY")
+	req.QueryParams().DocumentSeqNr = os.Getenv("OCTO_DOCUMENT_SEQ_NR")
 	req.SetRequestBody(octopus.InvoicesGetRequestBody{})
 	resp, err := req.Do()
 	if err != nil {

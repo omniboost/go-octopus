@@ -16,11 +16,11 @@ var (
 func TestMain(m *testing.M) {
 	var err error
 
-	baseURLString := os.Getenv("BASE_URL")
-	softwareHouse := os.Getenv("SOFTWARE_HOUSE")
-	username := os.Getenv("USERNAME")
-	password := os.Getenv("PASSWORD")
-	debug := os.Getenv("DEBUG")
+	baseURLString := os.Getenv("OCTO_BASE_URL")
+	softwareHouse := os.Getenv("OCTO_SOFTWARE_HOUSE")
+	username := os.Getenv("OCTO_USERNAME")
+	password := os.Getenv("OCTO_PASSWORD")
+	debug := os.Getenv("OCTO_DEBUG")
 	var baseURL *url.URL
 
 	if baseURLString != "" {
